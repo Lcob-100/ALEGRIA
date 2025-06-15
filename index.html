@@ -1,182 +1,120 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test de Nivel de Alegría</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #fff8e1;
-            color: #333;
-            max-width: 700px;
-            margin: auto;
-            padding: 20px;
-        }
-        h1 {
-            color: #ff9800;
-        }
-        .question {
-            margin-bottom: 20px;
-        }
-        button {
-            background: #ff9800;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-size: 16px;
-            border-radius: 5px;
-        }
-        .result {
-            font-weight: bold;
-            font-size: 18px;
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Test de Nivel de Alegría</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff8e1;
+      color: #333;
+      max-width: 700px;
+      margin: auto;
+      padding: 20px;
+    }
+    h1 {
+      color: #ff9800;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    button {
+      background: #ff9800;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+    .result {
+      font-weight: bold;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-    <h1>¿Qué nivel de alegría estás sintiendo ahora?</h1>
-    <form id="testForm">
-    </form>
-    <button onclick="calcularResultado()">Ver resultado</button>
-    <div class="result" id="resultado"></div>
+  <h1>¿Qué nivel de alegría estás sintiendo ahora?</h1>
+  <form id="testForm"></form>
+  <button onclick="calcularResultado()">Ver resultado</button>
+  <div class="result" id="resultado"></div>
 
-    <script>
-        const preguntas = [
-            "¿Cómo describirías tu estado emocional general en este momento?",
-            "¿Qué tan seguido has sonreído hoy?",
-            "¿Qué sientes cuando piensas en lo que estás viviendo ahora?",
-            "¿Qué ganas tienes de compartir tu emoción con alguien?",
-            "¿Tienes deseos de moverte, cantar, bailar o hacer algo creativo?",
-            "¿Qué tan conectado/a te sientes contigo y con el entorno ahora?",
-            "¿Cómo sientes tu cuerpo ahora?",
-            "¿Piensas en el futuro con…?",
-            "¿Cómo es tu deseo de agradecer por lo que tienes ahora?",
-            "Si tuvieras que ponerle un color a lo que sientes ahora, sería…"
-        ];
+  <script>
+    const preguntas = [
+      "¿Cómo describirías tu estado emocional general en este momento?",
+      "¿Qué tan seguido has sonreído hoy?",
+      "¿Qué sientes cuando piensas en lo que estás viviendo ahora?",
+      "¿Qué ganas tienes de compartir tu emoción con alguien?",
+      "¿Tienes deseos de moverte, cantar, bailar o hacer algo creativo?",
+      "¿Qué tan conectado/a te sientes contigo y con el entorno ahora?",
+      "¿Cómo sientes tu cuerpo ahora?",
+      "¿Piensas en el futuro con…?",
+      "¿Cómo es tu deseo de agradecer por lo que tienes ahora?",
+      "Si tuvieras que ponerle un color a lo que sientes ahora, sería…"
+    ];
 
-        const opciones = [
-            [
-                "Me siento en calma.",
-                "Me siento ligeramente animado/a.",
-                "Me siento bastante alegre.",
-                "Me siento muy entusiasmado/a.",
-                "Me siento lleno/a de gratitud y felicidad."
-            ],
-            [
-                "No lo recuerdo.",
-                "Una o dos veces.",
-                "Varias veces.",
-                "Casi todo el tiempo.",
-                "He estado sonriendo constantemente, incluso sin motivo."
-            ],
-            [
-                "Todo está tranquilo, sin mucho cambio.",
-                "Siento que algunas cosas van bien.",
-                "Me siento satisfecho/a con lo que tengo.",
-                "Siento emoción por lo que estoy viviendo.",
-                "Siento una conexión profunda y agradecimiento por este momento."
-            ],
-            [
-                "No muchas.",
-                "Podría hablarlo, pero no es urgente.",
-                "Me gustaría contárselo a alguien.",
-                "Quiero compartirlo con varias personas.",
-                "Siento una necesidad profunda de expresarlo y celebrarlo."
-            ],
-            [
-                "No en este momento.",
-                "Tal vez un poco.",
-                "Sí, algo me mueve a hacerlo.",
-                "¡Sí! Tengo mucha energía para eso.",
-                "No puedo quedarme quieto/a de tanta energía positiva."
-            ],
-            [
-                "No especialmente conectado/a.",
-                "Un poco.",
-                "Bastante conectado/a.",
-                "Muy conectado/a, con claridad.",
-                "Completamente en paz y en armonía."
-            ],
-            [
-                "Relajado/a, sin mayor cambio.",
-                "Suelto/a, con cierta comodidad.",
-                "Ligero/a y con buena energía.",
-                "Energético/a, como si el cuerpo tuviera ganas de expresarse.",
-                "Vibrante, como si todo el cuerpo celebrara."
-            ],
-            [
-                "Neutralidad o sin muchas expectativas.",
-                "Algo de interés.",
-                "Optimismo moderado.",
-                "Expectativa positiva.",
-                "Ilusión, esperanza y gratitud."
-            ],
-            [
-                "No he pensado en eso.",
-                "Agradezco algunas cosas.",
-                "Siento que tengo motivos para agradecer.",
-                "Estoy muy agradecido/a con lo que tengo.",
-                "Me siento profundamente agradecido/a por cada detalle."
-            ],
-            [
-                "Gris claro o azul suave.",
-                "Amarillo pálido o verde.",
-                "Naranja o celeste.",
-                "Amarillo fuerte o dorado.",
-                "Arco iris, dorado brillante o blanco radiante."
-            ]
-        ];
+    const opciones = [
+      ["Me siento en calma.","Me siento ligeramente animado/a.","Me siento bastante alegre.","Me siento muy entusiasmado/a.","Me siento lleno/a de gratitud y felicidad."],
+      ["No lo recuerdo.","Una o dos veces.","Varias veces.","Casi todo el tiempo.","He estado sonriendo constantemente, incluso sin motivo."],
+      ["Todo está tranquilo, sin mucho cambio.","Siento que algunas cosas van bien.","Me siento satisfecho/a con lo que tengo.","Siento emoción por lo que estoy viviendo.","Siento una conexión profunda y agradecimiento por este momento."],
+      ["No muchas.","Podría hablarlo, pero no es urgente.","Me gustaría contárselo a alguien.","Quiero compartirlo con varias personas.","Siento una necesidad profunda de expresarlo y celebrarlo."],
+      ["No en este momento.","Tal vez un poco.","Sí, algo me mueve a hacerlo.","¡Sí! Tengo mucha energía para eso.","No puedo quedarme quieto/a de tanta energía positiva."],
+      ["No especialmente conectado/a.","Un poco.","Bastante conectado/a.","Muy conectado/a, con claridad.","Completamente en paz y en armonía."],
+      ["Relajado/a, sin mayor cambio.","Suelto/a, con cierta comodidad.","Ligero/a y con buena energía.","Energético/a, como si el cuerpo tuviera ganas de expresarse.","Vibrante, como si todo el cuerpo celebrara."],
+      ["Neutralidad o sin muchas expectativas.","Algo de interés.","Optimismo moderado.","Expectativa positiva.","Ilusión, esperanza y gratitud."],
+      ["No he pensado en eso.","Agradezco algunas cosas.","Siento que tengo motivos para agradecer.","Estoy muy agradecido/a con lo que tengo.","Me siento profundamente agradecido/a por cada detalle."],
+      ["Gris claro o azul suave.","Amarillo pálido o verde.","Naranja o celeste.","Amarillo fuerte o dorado.","Arco iris, dorado brillante o blanco radiante."]
+    ];
 
-        const form = document.getElementById("testForm");
-        preguntas.forEach((pregunta, i) => {
-            const div = document.createElement("div");
-            div.classList.add("question");
-            div.innerHTML = `<p>${i + 1}. ${pregunta}</p>`;
-            opciones[i].forEach((op, j) => {
-                div.innerHTML += `<label><input type="radio" name="p${i}" value="${j + 1}"> ${op}</label><br>`;
-            });
-            form.appendChild(div);
-        });
+    const form = document.getElementById("testForm");
+    preguntas.forEach((pregunta, i) => {
+      const div = document.createElement("div");
+      div.classList.add("question");
+      div.innerHTML = `<p>${i + 1}. ${pregunta}</p>`;
+      opciones[i].forEach((op, j) => {
+        div.innerHTML += `<label><input type="radio" name="p${i}" value="${j + 1}"> ${op}</label><br>`;
+      });
+      form.appendChild(div);
+    });
 
-        function calcularResultado() {
-            let total = 0;
-            for (let i = 0; i < preguntas.length; i++) {
-                const respuesta = document.querySelector(`input[name="p${i}"]:checked`);
-                if (respuesta) {
-                    total += parseInt(respuesta.value);
-                }
-            }
-            let resultado = "";
-let urlConsejo = "";
-
-if (total <= 16) {
-  resultado = "Nivel: Tranquilidad / Satisfacción leve";
-  urlConsejo = "consejos-nivel1.html";
-} else if (total <= 24) {
-  resultado = "Nivel: Agrado / Placer";
-  urlConsejo = "consejos-nivel2.html";
-} else if (total <= 32) {
-  resultado = "Nivel: Alegría / Entusiasmo";
-  urlConsejo = "consejos-nivel3.html";
-} else if (total <= 40) {
-  resultado = "Nivel: Euforia / Júbilo";
-  urlConsejo = "consejos-nivel4.html";
-} else {
-  resultado = "Nivel: Plenitud / Gratitud profunda";
-  urlConsejo = "consejos-nivel5.html";
-}
-
-document.getElementById("resultado").innerText = resultado;
-
-// Redirige automáticamente después de 25 segundos
-setTimeout(() => {
-  window.location.href = urlConsejo;
-}, 4000);
-
+    function calcularResultado() {
+      let total = 0;
+      for (let i = 0; i < preguntas.length; i++) {
+        const respuesta = document.querySelector(`input[name="p${i}"]:checked`);
+        if (respuesta) {
+          total += parseInt(respuesta.value);
         }
-    </script>
+      }
+
+      let resultado = "";
+      let urlConsejo = "";
+
+      if (total <= 16) {
+        resultado = "Nivel: Tranquilidad / Satisfacción leve";
+        urlConsejo = "consejos-nivel1.html";
+      } else if (total <= 24) {
+        resultado = "Nivel: Agrado / Placer";
+        urlConsejo = "consejos-nivel2.html";
+      } else if (total <= 32) {
+        resultado = "Nivel: Alegría / Entusiasmo";
+        urlConsejo = "consejos-nivel3.html";
+      } else if (total <= 40) {
+        resultado = "Nivel: Euforia / Júbilo";
+        urlConsejo = "consejos-nivel4.html";
+      } else {
+        resultado = "Nivel: Plenitud / Gratitud profunda";
+        urlConsejo = "consejos-nivel5.html";
+      }
+
+      document.getElementById("resultado").innerText = resultado;
+
+      // Redirecciona luego de 4 segundos
+      setTimeout(() => {
+        window.location.href = urlConsejo;
+      }, 4000);
+    }
+  </script>
 </body>
 </html>
