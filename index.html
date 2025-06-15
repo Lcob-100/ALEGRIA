@@ -150,13 +150,32 @@
                 }
             }
             let resultado = "";
-            if (total <= 16) resultado = "Nivel: Tranquilidad / Satisfacción leve";
-            else if (total <= 24) resultado = "Nivel: Agrado / Placer";
-            else if (total <= 32) resultado = "Nivel: Alegría / Entusiasmo";
-            else if (total <= 40) resultado = "Nivel: Euforia / Júbilo";
-            else resultado = "Nivel: Plenitud / Gratitud profunda";
+let urlConsejo = "";
 
-            document.getElementById("resultado").innerText = resultado;
+if (total <= 16) {
+  resultado = "Nivel: Tranquilidad / Satisfacción leve";
+  urlConsejo = "consejos-nivel1.html";
+} else if (total <= 24) {
+  resultado = "Nivel: Agrado / Placer";
+  urlConsejo = "consejos-nivel2.html";
+} else if (total <= 32) {
+  resultado = "Nivel: Alegría / Entusiasmo";
+  urlConsejo = "consejos-nivel3.html";
+} else if (total <= 40) {
+  resultado = "Nivel: Euforia / Júbilo";
+  urlConsejo = "consejos-nivel4.html";
+} else {
+  resultado = "Nivel: Plenitud / Gratitud profunda";
+  urlConsejo = "consejos-nivel5.html";
+}
+
+document.getElementById("resultado").innerText = resultado;
+
+// Redirige automáticamente después de 25 segundos
+setTimeout(() => {
+  window.location.href = urlConsejo;
+}, 4000);
+
         }
     </script>
 </body>
